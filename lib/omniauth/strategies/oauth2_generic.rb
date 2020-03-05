@@ -6,6 +6,7 @@ module OmniAuth
       option :name, 'oauth2_generic'
       option :scope, 'openid, email, profile'
       option :token_method, :post
+      option :resource, '00000002-0000-0000-c000-000000000000'
 
       option :client_options, { # Defaults are set for GitLab example implementation
         site: 'https://gitlab.com', # The URL for your OAuth 2 server
@@ -51,6 +52,11 @@ module OmniAuth
 
       def raw_info
         @raw_info ||= access_token.get(options.client_options[:user_info_url]).parsed
+      end
+
+      def token_params
+        azure_resource = request.env['omniauth.params'] && request.env['omniauth.params']['azure_resource']
+        super.merge(resource: azure_resource || options.resource)
       end
 
       def authorize_params
