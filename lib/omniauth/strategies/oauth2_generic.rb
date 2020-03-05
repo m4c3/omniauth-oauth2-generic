@@ -4,8 +4,8 @@ module OmniAuth
   module Strategies
     class OAuth2Generic < OmniAuth::Strategies::OAuth2
       option :name, 'oauth2_generic'
-      #option :scope, 'openid, email, profile'
-      #option :token_method, :post
+      option :scope, 'openid, email, profile'
+      option :token_method, :post
 
       option :client_options, { # Defaults are set for GitLab example implementation
         site: 'https://gitlab.com', # The URL for your OAuth 2 server
